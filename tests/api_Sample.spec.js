@@ -37,14 +37,11 @@ test('post Request - API', async({request}) => {
     })
 
     expect(response.ok()).toBeTruthy();
-
-    const firstName = await response.text();
-    expect(firstName).toContain("Sally")
-
     const response_body = await response.json();
-    
     process.env.id = response_body.bookingid;
     console.log(response_body);
+    const firstName = await response.text();
+    expect(firstName).toContain("Sally")
     
 })
 
@@ -59,13 +56,32 @@ test('Get Request - API', async({request}) => {
     
     const response_body = await response.json();
     console.log(response_body);
-    //console.log(response)
-    
-    // const firstName = await response.text();
-    // expect(firstName).toContain("sally")
+    const depositpaid = await response.text();
+    expect(depositpaid).toContain("true")
 
 })
 
+
+test('put Request without Auth - API', async({request}) => {
+    const url = BASEURL + `${process.env.id}`;
+    const response = await request.put(url, {
+        data:
+        {
+            "firstname" : "James",
+            "lastname" : "Brown",
+            "totalprice": 111,
+            "depositpaid": true,
+            "bookingdates": {
+                "checkin": "2025-05-23",
+                "checkout": "2025-10-23"
+            },
+            "additionalneeds": "Breakfast"
+        }
+    })
+     
+    expect(response.status()).toBe(403)
+    
+})
 
 
 test('put Request - API', async({request}) => {
@@ -92,12 +108,8 @@ test('put Request - API', async({request}) => {
     })
      
     const response_body = await response.json();
-    
     console.log(response_body);
-
-
     expect(response.status()).toBe(200)
-
     const firstName = await response.text();
     expect(firstName).toContain("James")
     
@@ -120,12 +132,8 @@ test('patch Request - API', async({request}) => {
     })
      
     const response_body = await response.json();
-    
     console.log(response_body);
-
-
     expect(response.status()).toBe(200)
-
     const addition_need = response_body.additionalneeds;
     expect(addition_need).toContain("lunch");
 })
@@ -139,12 +147,34 @@ test('Delete Request - API', async({request}) => {
         },
     })
      
-    //const response_body = await response.json();
-    
-    //console.log(response_body);
-
-
     expect(response.ok()).toBeTruthy();
+
+})
+
+test('put Request post Delete - API', async({request}) => {
+    const url = BASEURL + `${process.env.id}`;
+    const response = await request.put(url, {
+        headers: {
+            "Content-Type": "application/json",
+            "Cookie": `token=${process.env.Auth_token}`,
+            "Accept": "application/json",
+            "Authorization": `Basic ${process.env.Auth_token}`
+        },
+        data:
+        {
+            "firstname" : "James",
+            "lastname" : "Brown",
+            "totalprice": 111,
+            "depositpaid": true,
+            "bookingdates": {
+                "checkin": "2025-05-23",
+                "checkout": "2025-10-23"
+            },
+            "additionalneeds": "Breakfast"
+        }
+    })
+     
+   expect(response.status()).toBe(405)
 
 })
 
@@ -157,11 +187,4 @@ test('Get Request post Delete - API', async({request}) => {
     })
 
     expect(response.status()).toBe(404)
-    
-    // const response_body = await response.json();
-    // console.log(response_body);
-    // //console.log(response)
-    
-    // const firstName = await response.text();
-    // expect(firstName).toContain("sally")
 })
