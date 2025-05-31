@@ -40,7 +40,7 @@ test('post Request - API', async({request}) => {
 
     const firstName = await response.text();
     expect(firstName).toContain("Sally")
-    
+
     const response_body = await response.json();
     
     process.env.id = response_body.bookingid;
