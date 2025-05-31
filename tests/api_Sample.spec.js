@@ -3,8 +3,6 @@ let BASEURL = 'https://restful-booker.herokuapp.com/booking/'
 
 test('auth token',async() => {
 
-    Console.log("Fetching Auth Token")
-
     const apiContext = await request.newContext();
     const loginResponse = await apiContext.post('https://restful-booker.herokuapp.com/auth', {
     data: {
