@@ -16,9 +16,11 @@ steps:
     versionSpec: '22.x'
   displayName: 'Install Node.js'
 
-- script: |
-    npm install
-    npm run test
+- task: CmdLine@2
+  inputs:
+    script: |
+      npm install
+      npm run test
   displayName: 'Install dependencies and run tests'
 
 - task: PublishTestResults@2
