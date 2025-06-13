@@ -35,8 +35,8 @@ npx playwright test --reporter=html
 ```
 
 
-### We have Automated all the API Functionality
-###
+### We have Automated all the API Functionality like generating auth token, POST,GET,PUT,PATCH,DELETE.
+### We have added scenarios for 
 ###
 ###
 ###
