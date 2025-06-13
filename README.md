@@ -33,6 +33,14 @@ npm run report
 or
 npx playwright test --reporter=html
 ```
+
+
+### We have Automated all the API Functionality
+###
+###
+###
+###
+
 ### Repo is integrated with Jenkins which will Automatically triggers for git push Action.
 ### Jenkins will mail the reports to endusers Once completion of Execution.
 
