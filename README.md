@@ -11,19 +11,31 @@ API testing using:
 You need to have Node.js and VS code installed on your machine.
 ## Commands Used
 
-### Playwright installation
+### Setup Instruction:
+
+### Clone repo
+
+```shell
+git clone https://github.com/IMSMITHA66/Playwright_Automation.git
+cd API_Automation
+```
+
+### Playwright dependencies installation
 
 ```shell
 npx playwright install
 ```
 
 ### Run all tests in Playwrigh
+
 ```shell
 npx playwright test 
 or
 npm run test
 ```
 ### To open last HTML report
+Post Execution html report will be generated under playwright-report folder
+
 ```shell
 npx playwright show-report
 ```
@@ -34,15 +46,23 @@ or
 npx playwright test --reporter=html
 ```
 
+### Env config
+You can use .env files for storing data.
 
-### We have Automated all the API Functionality like generating auth token, POST,GET,PUT,PATCH,DELETE.
-### We have added scenarios for 
-###
-###
-###
+```shell
+const url = BASEURL + `${process.env.id}`;
+```
 
+
+
+### Automated all the API Functionality like generating auth token, POST,GET,PUT,PATCH,DELETE.
+### Added scenarios for validating without authtoken, Validating Put call post Delete,Validating get call post delete.
+### html report will be generated post execution.
 ### Repo is integrated with Jenkins which will Automatically triggers for git push Action.
-### Jenkins will mail the reports to endusers Once completion of Execution.
+### Hosted the jenkins in Azure linux VM justed to avoid using local host.
+### Jenkins will mail the html reports and console log to endusers Once completion of Execution.
+
+
 
 ### Faced Issue while setting Extended email configaration in Jenkins.
 ### Need to provide credential for sender mail id with password generated for app in gmail account.
